@@ -34,6 +34,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ToastMessage } from "@/components/creator-ui";
 import DataPagination from "@/components/creator-ui/Pagination";
+import TransferHistory from "@/components/shared/transfer-history";
+import TransferMoneyModal from "@/components/shared/transfer-money-modal";
 
 const formSchema = z
   .object({
@@ -137,162 +139,12 @@ const DashboardComp: FC = () => {
                             </p>
                           </div>
                           <div>
-                            <Dialog>
-                              <DialogTrigger asChild>
-                                <div onClick={() => {
-                                  setSuccess(false);
-                                }} className="text-sm font-normal text-black bg-green-500 cursor-pointer rounded-lg px-2">+ Send Money</div>
-                              </DialogTrigger>
-                              <DialogContent className="sm:max-w-md text-gray-200">
-                                {success ? (
-                                  <div className="flex flex-col justify-center items-center">
-                                    <p>Transaction Successfull</p>
-                                  </div>
-                                ) : (
-                                  <>
-                                    <AnimatePresence>
-                                      {(mutation.isError || balanceError) && (
-                                        <motion.div
-                                          initial={{ y: -20, opacity: 0.5 }}
-                                          animate={{ y: 0, opacity: 1 }}
-                                          exit={{ y: -20, opacity: 0.2 }}
-                                        >
-                                          <ToastMessage
-                                            message={
-                                              balanceError
-                                                ? "Insufficient balance"
-                                                : mutation?.error?.message || "An error occured during process"
-                                            }
-                                          />
-                                        </motion.div>
-                                      )}
-                                    </AnimatePresence>
-
-                                    <DialogHeader>
-                                      <DialogTitle>Transfer</DialogTitle>
-                                    </DialogHeader>
-                                    <div className="flex flex-col items-center gap-2">
-
-
-                                      <Form {...form}>
-                                        <form
-                                          onSubmit={form.handleSubmit(onSubmit)}
-                                          className="w-full flex flex-col m-auto justify-center"
-                                        >
-                                          <motion.div
-                                            initial={{ y: -20, opacity: 0.5 }}
-                                            animate={{ y: 0, opacity: 1 }}
-                                            exit={{ y: -20, opacity: 0.2 }}
-                                          >
-                                            <div className="flex flex-col gap-y-4">
-                                              <FormField
-                                                control={form.control}
-                                                name="recipientUsername"
-                                                render={({ field }) => (
-                                                  <FormItem className="grid gap-2 w-full">
-                                                    <FormControl>
-                                                      <input
-                                                        autoComplete="off"
-                                                        type="text"
-                                                        placeholder="username"
-                                                        {...field}
-                                                        className="md:pt-0 pt-4 text-[0.98rem] rounded-none text-txWhite w-full mt-1 bg-transparent border-b-[1px] border-primary-border focus:border-b-orange-500 outline-none transition-colors duration-500"
-                                                      />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                  </FormItem>
-                                                )}
-                                              />
-
-                                              <FormField
-                                                control={form.control}
-                                                name="amount"
-                                                render={({ field }) => (
-                                                  <FormItem className="grid gap-2 w-full">
-                                                    <FormControl>
-                                                      <input
-                                                        type="text"
-                                                        id="amount"
-                                                        placeholder="amount"
-                                                        {...field}
-
-                                                        onChange={(e) => {
-                                                          const numericValue =
-                                                            e.target.value.replace(
-                                                              /^0+|[^0-9]/g,
-                                                              ""
-                                                            );
-
-                                                          field.onChange(numericValue);
-
-                                                          // Clear balance error when user types
-                                                          if (balanceError) {
-                                                            setBalanceError(false);
-                                                          }
-
-                                                          // Real time balance validation
-                                                          const amount = parseFloat(numericValue) || 0;
-                                                          if (amount > userBalance && numericValue !== "") {
-                                                            setBalanceError(true);
-                                                          }
-                                                        }}
-                                                        value={field.value ?? ""}
-                                                        className={`md:pt-0 pt-4 text-[0.98rem] rounded-none text-txWhite w-full mt-1 bg-transparent border-b-[1px] ${balanceError ? 'border-red-500' : 'border-primary-border'
-                                                          } focus:border-b-orange-500 outline-none transition-colors duration-500`}
-                                                      />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                  </FormItem>
-                                                )}
-                                              />
-
-                                              <FormField
-                                                control={form.control}
-                                                name="description"
-                                                render={({ field }) => (
-                                                  <FormItem className="grid gap-2 w-full">
-                                                    <FormControl>
-                                                      <input
-                                                        autoComplete="off"
-                                                        type="text"
-                                                        placeholder="description (optional)"
-                                                        {...field}
-                                                        className="md:pt-0 pt-4 text-[0.98rem] rounded-none text-txWhite w-full mt-1 bg-transparent border-b-[1px] border-primary-border focus:border-b-orange-500 outline-none transition-colors duration-500"
-                                                      />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                  </FormItem>
-                                                )}
-                                              />
-
-
-                                              <br />
-                                            </div>
-                                          </motion.div>
-
-                                          <DialogFooter className="sm:justify-start">
-                                            <button
-                                              type="submit"
-                                              disabled={balanceError || !form.formState.isValid}
-                                              className={`flex gap-x-1 items-center self-end rounded-md w-fit text-white px-3 py-1.5 text-sm font-medium transition-colors ${balanceError || !form.formState.isValid
-                                                ? 'bg-gray-500 cursor-not-allowed'
-                                                : 'bg-primary-orange hover:bg-primary-orange/90'
-                                                }`}
-                                            >
-                                              Send
-                                              {form.formState.isValid && mutation.isPending && (
-                                                <LoaderCircle className="text-white w-4 rotate-icon" />
-                                              )}
-                                            </button>
-                                          </DialogFooter>
-
-                                        </form>
-                                      </Form>
-                                    </div>
-                                  </>
-                                )}
-                              </DialogContent>
-                            </Dialog>
+                            <TransferMoneyModal
+                              refetch={refetch}
+                              data={data}
+                              userBalance={userBalance}
+                              itemsRefetch={itemsRefetch}
+                            />
                           </div>
                         </CardTitle>
                       </CardHeader>
@@ -303,70 +155,15 @@ const DashboardComp: FC = () => {
             </div>
           </div>
           <div className="w-full">
-            <div className="flex gap-y-6 px-0 flex-col w-full h-full">
-              <div className="pt-4 rounded-md md:px-3 px-0 gap-y-10 flex pb-4 gap-x-4 flex-col">
-                <div className="flex pb-4 flex-col bg-primaryDark pt-4 rounded-md">
-                  <div className="pt-4 rounded-t-md px-3 flex pb-4 border-b border-primary-border">
-                    <div className="flex justify-between w-full">
-                      <p className="capitalize text-lg font-medium text-secondaryBorder">
-                        Transaction History
-                      </p>
-                      <RefreshCcw className={`w-4 cursor-pointer capitalize text-lg font-medium text-secondaryBorder ${isItemsRefetching ? "rotate-icon" : ""}`} onClick={() => itemsRefetch()} />
-                    </div>
-                  </div>
-
-                  {itemsData &&
-                    !isItemsLoading &&
-                    !isItemsRefetching &&
-                    itemsData.pagination.total_transactions > 0 && (
-                      <>
-                        {itemsData?.transactions
-                          .map((transaction: any, index: number) => (
-                            <div className="text-white flex gap-x-3 px-3 py-2 items-center">
-                              <p>{index + 1}.</p>
-                              <p>{transaction.counterpart_user_name} - </p>
-                              <p className="italic">{transaction.description}</p>
-                              <p className="text-sm">{new Date(transaction?.created_at).toLocaleDateString()}</p>
-                              {
-                                transaction.mode === "debit" ?
-                                  <span className="text-red-500">- ${transaction.amount.toFixed(2)}</span>
-                                  :
-                                  <span className="text-green-500">+ ${transaction.amount.toFixed(2)}</span>
-                              }
-                              <p className={`${transaction.mode === "debit" ? "bg-red-600/20 text-red-500" : "bg-green-600/20 text-green-500"} capitalize px-3 rounded-lg`}>{transaction.mode}</p>
-                            </div>
-                          ))}
-
-                        <DataPagination
-                          currentPage={page}
-                          setCurrentPage={setPage}
-                          refetch={itemsRefetch}
-                          total_items={itemsData.pagination.total_transactions}
-                          total_pages={itemsData.pagination.total_pages}
-                          items_per_page={itemsData.pagination.perPage}
-                          current_item_count={itemsData.pagination.total_transactions} // Total number of items matching the filter
-                        />
-                      </>
-                    )}
-
-                  {itemsData?.currentItemCount < 1 &&
-                    !isRefetching &&
-                    !isItemsLoading && (
-                      <div className="text-txWhite h-[18rem] m-auto flex flex-col justify-center items-center font-medium text-lg font-edu">
-                        <FolderOpen />
-                        Empty
-                      </div>
-                    )}
-
-                  {(isItemsLoading || isItemsRefetching) && (
-                    <div className="text-txWhite h-[18rem] m-auto flex flex-col justify-center items-center font-medium text-lg font-edu">
-                      <Loader className="rotate-icon size-8" />
-                      Loading
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+            <TransferHistory
+              itemsData={itemsData}
+              isItemsLoading={isItemsLoading}
+              isItemsRefetching={isItemsRefetching}
+              page={page}
+              setPage={setPage}
+              itemsRefetch={itemsRefetch}
+              isRefetching={isRefetching}
+            />
           </div>
 
         </div>
