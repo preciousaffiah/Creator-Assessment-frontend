@@ -53,6 +53,9 @@ const DashboardComp: FC = () => {
 
   const [success, setSuccess] = useState(false);
 
+  const [balanceError, setBalanceError] = useState(false);
+  const userBalance = (data?.balance || userData?.balance)?.toFixed(2)?.toLocaleString();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -84,6 +87,15 @@ const DashboardComp: FC = () => {
   });
 
   const onSubmit = () => {
+    const amount = parseFloat(data.amount) || 0;
+
+    if (amount > userBalance) {
+      setBalanceError(true);
+      return;
+    }
+
+    setBalanceError(false);
+
     mutation.mutate()
   };
 
@@ -118,7 +130,7 @@ const DashboardComp: FC = () => {
                                 isRefetching ? <p>...</p>
                                   :
                                   <>
-                                    {(data?.balance || userData?.balance)?.toFixed(2)?.toLocaleString()}
+                                    {userBalance}
                                   </>
                               }
 
@@ -139,7 +151,7 @@ const DashboardComp: FC = () => {
                                 ) : (
                                   <>
                                     <AnimatePresence>
-                                      {mutation.isError && (
+                                      {(mutation.isError || balanceError) && (
                                         <motion.div
                                           initial={{ y: -20, opacity: 0.5 }}
                                           animate={{ y: 0, opacity: 1 }}
@@ -147,8 +159,9 @@ const DashboardComp: FC = () => {
                                         >
                                           <ToastMessage
                                             message={
-                                              mutation?.error?.message ||
-                                              "An error occured during process"
+                                              balanceError
+                                                ? "Insufficient balance"
+                                                : mutation?.error?.message || "An error occured during process"
                                             }
                                           />
                                         </motion.div>
@@ -210,10 +223,22 @@ const DashboardComp: FC = () => {
                                                               ""
                                                             );
 
-                                                          field.onChange(numericValue); // Update the form value
+                                                          field.onChange(numericValue);
+
+                                                          // Clear balance error when user types
+                                                          if (balanceError) {
+                                                            setBalanceError(false);
+                                                          }
+
+                                                          // Real time balance validation
+                                                          const amount = parseFloat(numericValue) || 0;
+                                                          if (amount > userBalance && numericValue !== "") {
+                                                            setBalanceError(true);
+                                                          }
                                                         }}
                                                         value={field.value ?? ""}
-                                                        className="md:pt-0 pt-4 text-[0.98rem] rounded-none text-txWhite w-full mt-1 bg-transparent border-b-[1px] border-primary-border focus:border-b-orange-500 outline-none transition-colors duration-500"
+                                                        className={`md:pt-0 pt-4 text-[0.98rem] rounded-none text-txWhite w-full mt-1 bg-transparent border-b-[1px] ${balanceError ? 'border-red-500' : 'border-primary-border'
+                                                          } focus:border-b-orange-500 outline-none transition-colors duration-500`}
                                                       />
                                                     </FormControl>
                                                     <FormMessage />
@@ -248,20 +273,22 @@ const DashboardComp: FC = () => {
                                           <DialogFooter className="sm:justify-start">
                                             <button
                                               type="submit"
-                                              className="flex gap-x-1 items-center self-end bg-primary-orange rounded-md w-fit text-white px-3 py-1.5 text-sm font-medium"
+                                              disabled={balanceError || !form.formState.isValid}
+                                              className={`flex gap-x-1 items-center self-end rounded-md w-fit text-white px-3 py-1.5 text-sm font-medium transition-colors ${balanceError || !form.formState.isValid
+                                                ? 'bg-gray-500 cursor-not-allowed'
+                                                : 'bg-primary-orange hover:bg-primary-orange/90'
+                                                }`}
                                             >
                                               Send
                                               {form.formState.isValid && mutation.isPending && (
                                                 <LoaderCircle className="text-white w-4 rotate-icon" />
                                               )}
                                             </button>
-
                                           </DialogFooter>
 
                                         </form>
                                       </Form>
                                     </div>
-
                                   </>
                                 )}
                               </DialogContent>
