@@ -1,6 +1,6 @@
 import { TAppUserState } from "@types";
 
-const STORE_NAME = "creatorADMINSERVICE";
+const STORE_NAME = "CREATORSERVICE";
 
 export const loadStore = () => {
   try {
