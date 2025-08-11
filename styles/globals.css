@@ -1,0 +1,373 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+.rotate-icon {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.ReactFlagsSelect-module_flagsSelect__2pfa2 {
+  padding-bottom: 0 !important;
+  color: black !important;
+}
+.ReactFlagsSelect-module_selectBtn__19wW7 {
+  padding: 0 !important;
+  border: 0 !important;
+}
+/* .ReactFlagsSelect-module_selectValue__152eS {
+  color: var(--txWhite);
+} */
+
+.PhoneInputInput {
+  background-color: transparent;
+  outline: none;
+  border-color: #616161;
+}
+.PhoneInputInput:focus {
+  --tw-border-opacity: 1;
+  border-bottom-color: #f97316 /* #f97316 */;
+}
+
+.transparent-btn {
+  background: transparent !important;
+}
+
+.image-container {
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+}
+
+.image-container img {
+  width: 100%;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.1); /* Zoom in */
+  filter: brightness(70%); /* Darken */
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.step.active {
+  background-color: #86a820;
+}
+
+.barchat {
+  width: 100% !important;
+  height: fit-content !important;
+  left: 0 !important;
+}
+thead tr th:first-child,
+tr td:first-child {
+  padding-left: 2rem;
+}
+
+thead tr th:last-child,
+tr td:last-child {
+  padding-right: 2rem;
+}
+
+.status-pending,
+.status-medium {
+  /* background: "yellow"; */
+  background: rgba(var(--statusPending));
+  /* color: "red"; */
+  color: rgba(var(--textPending));
+}
+
+.status-failed,
+.status-cancelled,
+.status-declined,
+.status-occupied,
+.status-inactive,
+.status-false,
+.status-high {
+  background: rgba(var(--statusCancelled));
+  color: rgba(var(--textCancelled));
+}
+
+.status-processed,
+.status-approved,
+.status-paid,
+.status-success,
+.status-processed,
+.status-completed,
+.status-served,
+.status-available,
+.status-active,
+.status-true,
+.status-low {
+  background: rgba(var(--statusCompleted));
+  color: rgba(var(--textCompleted));
+}
+
+.cover {
+  background-image: url("https://res.cloudinary.com/dlq0uwrii/image/upload/v1743272687/servlette/random/cover_wsvpey.png");
+  background-size: cover;
+}
+
+.changing-text {
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.5rem; /* Ensure space for animations */
+  overflow: hidden;
+  position: relative;
+}
+
+.word {
+  position: absolute;
+  opacity: 0;
+  animation: slide 9s infinite;
+  color: #f97316;
+  padding-left: 1rem;
+}
+
+.word:nth-child(1) {
+  animation-delay: 0s;
+}
+.word:nth-child(2) {
+  animation-delay: 3s;
+}
+.word:nth-child(3) {
+  animation-delay: 6s;
+}
+
+@keyframes slide {
+  0% { opacity: 0; transform: translateY(100%); }
+  10%, 20% { opacity: 1; transform: translateY(0); }
+  30%, 100% { opacity: 0; transform: translateY(-50%); }
+}
+ 
+
+@layer components {
+  button {
+    border-color: transparent;
+  }
+  .no-border {
+    border: none !important;
+  }
+
+  .auth-header {
+    font-size: 1.6rem;
+  }
+  .auth-subheader {
+    font-size: 1.2rem;
+  }
+
+  .modal-overlay {
+    @apply fixed justify-end z-[50] top-0 left-0 w-full h-full flex items-center bg-black bg-opacity-30;
+  }
+  .modal-content {
+    @apply bg-background py-3 rounded-md h-full w-full max-w-[30rem] overflow-y-scroll;
+  }
+
+  .modal-header {
+    @apply flex justify-end px-2;
+  }
+
+  .close-button {
+    @apply cursor-pointer text-5xl px-2 text-txWhite md:absolute md:pb-0 pb-2 top-28 right-[28.5rem];
+  }
+
+  .orders-table-head {
+    @apply text-center border-b border-secondaryBorder;
+  }
+
+  .active-main-tab {
+    @apply before:border-b-2 before:border-b-orange-500 after:border-b-2 after:border-b-orange-500 data-[state=active]:rounded-none data-[state=active]:border-b-2 data-[state=active]:border-b-orange-500;
+  }
+  .active-sub-tab {
+    @apply data-[state=active]:bg-primary data-[state=active]:text-primaryDark;
+  }
+
+  .active-order-tab {
+    @apply data-[state=active]:text-primaryLime;
+  }
+  .transparent-btn {
+    @apply border-secondary-transparent-border border px-2 rounded-xl flex gap-x-2;
+  }
+
+  .authcard1 {
+    @apply h-screen;
+  }
+  .authcard2 {
+    @apply w-full m-auto bg-foreground;
+  }
+  .authcard3 {
+    @apply bg-secondaryDark py-24 md:px-14 px-7 h-full w-full;
+  }
+  .authcard4 {
+    @apply flex justify-center w-full h-full;
+  }
+  .authcard5 {
+    @apply bg-primaryDark md:w-1/2 w-full md:rounded-l-xl md:rounded-none rounded-xl md:py-0 py-6 md:px-0 px-2 flex flex-col self-center m-auto h-full items-center;
+  }
+  .authcard5a {
+    @apply md:m-auto m-0 md:max-w-[23rem] w-full md:px-0 px-5;
+  }
+  .authcard6 {
+    @apply md:w-1/2 w-0;
+  }
+  .authbtn {
+    @apply my-4 py-1 rounded-md w-full bg-primaryGreen hover:bg-[#86a820] text-black;
+  }
+  .authimg1 {
+    @apply w-48 h-12 mb-12;
+  }
+  .authimg2 {
+    @apply lg:w-48 w-[10rem] h-12;
+  }
+  .authimg3 {
+    @apply h-full w-full rounded-r-xl;
+  }
+}
+@layer base {
+  :root {
+    --primaryGreen: 167, 209, 41;
+    --primaryLime: 139, 174, 34;
+    --secondaryDark: 227, 232, 232;
+    --primaryDark: 255, 255, 255;
+    --txWhite: 72, 72, 72;
+    --secondaryBorder: 136, 136, 136;
+
+    --statusCancelled: 255, 223, 217;
+    --textCancelled: 123, 20, 40;
+    --statusPending: 240, 231, 157;
+    --textPending: 113, 99, 2;
+    --statusCompleted: 197, 255, 188;
+    --textCompleted: 21, 91, 11;
+
+    --selectedRow: 226, 240, 184;
+    --secondaryDarker: 239, 239, 239;
+
+    --background: 0, 0%, 100%; /* white */
+    --foreground: 180, 9.8%, 90%; /* whiteish */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --primaryGreen: 167, 209, 41;
+    --primaryLime: 167, 209, 41;
+    --secondaryDark: 38, 37, 37;
+    --primaryDark: 25, 25, 25;
+    --txWhite: 255, 255, 255;
+    --secondaryBorder: 165, 165, 165;
+
+    --statusCancelled: 31, 5, 1;
+    --textCancelled: 235, 80, 51;
+    --statusPending: 84, 74, 1;
+    --textPending: 255, 229, 37;
+    --statusCompleted: 9, 67, 1;
+    --textCompleted: 65, 200, 46;
+
+    --selectedRow: 30, 36, 10;
+    --secondaryDarker: 32, 31, 31;
+
+    --background: 0, 0%, 0%; /* black */
+    --foreground: 0, 1.3%, 14.7%; /* grey */
+
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+
+@layer base {
+  /* * {
+    @apply border-border;
+  } */
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  /* * {
+    @apply border-border outline-ring/50;
+  } */
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+
+@layer base {
+  * {
+    /* @apply border-border outline-ring/50; */
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

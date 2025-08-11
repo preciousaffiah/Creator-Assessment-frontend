@@ -1,0 +1,128 @@
+.Button {
+  position: relative;
+  button {
+    font-size: 16px;
+    background-color: $teal-primary;
+    // border-color: $teal-primary;
+    color: $background-light;
+    height: 54px;
+    border-radius: 26px;
+    display: inline-block;
+    // font-size: 16px;
+    // font-weight: 400;
+    line-height: 0;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer!important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    padding: 11px 22px;
+    transition: all 0.2s ease-in-out;
+
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    border: 2.5px solid $teal-primary;
+
+    &:hover,
+    &:focus {
+      background-color: $teal-hover;
+      border-color: $teal-hover;
+      color: $background-light;
+    }
+    &:active{
+      background-color: $background-light;
+      border-color: black;
+      color: $text-secondary;
+    }
+    &:disabled{
+      background-color: $teal-hover;
+      border-color: $teal-hover;
+      color: $background-light;
+      cursor: not-allowed !important;
+    }
+
+    svg {
+      height: 19px;
+    }
+
+    .Spinner {
+      svg {
+        @keyframes loadingCircle {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        overflow: hidden;
+        transition: all 0.2s ease-in-out;
+        -webkit-animation: loadingCircle 1s infinite linear;
+        animation: loadingCircle 1s infinite linear;
+        margin-right: 10px;
+        line-height: 1;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  &.outline {
+    button {
+      background-color: $background-light;
+      border-color: $teal-primary;
+      color: $teal-primary;
+
+      &:hover,
+      &:focus {
+        border-color: $teal-hover;
+        color: $teal-hover;
+      }
+      &:active{
+      background-color: $background-light;
+      border-color: black;
+      color: $text-secondary;
+    }
+    }
+  }
+
+  &.ghost{
+    button {
+      background-color: transparent;
+      border-color: transparent;
+      color: $teal-primary;
+
+      &:hover,
+      &:focus {
+        border-color: transparent;
+        color: $teal-hover;
+      }
+    }
+  }
+
+  &.iconButton{
+    button{
+      height: 25px!important;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg{
+        margin-right: unset;
+      }
+    }
+  }
+
+  &.small{
+    button{
+      height: 36px;
+      font-size: 14px;
+      font-weight: 300;
+      padding: 20px;
+    }
+  }
+}

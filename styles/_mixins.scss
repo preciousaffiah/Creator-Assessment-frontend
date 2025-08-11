@@ -1,0 +1,46 @@
+@import 'variables';
+
+// Handling adaptive changes according to breakpoint provided
+@mixin respond($breakpoint) {
+
+  @if $breakpoint==laptop {
+    @media only screen and (max-width: $break-width-laptop) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==tablet {
+    @media only screen and (max-width: $break-width-tablet) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==mobile {
+    @media only screen and (max-width: $break-width-mobile) {
+      @content;
+    }
+  }
+}
+
+// links
+@mixin button-link($type){
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 32.5px;
+  color: $teal-primary;
+  border: 2.5px solid $background-light;
+  line-height: 1.6;
+
+  @if($type == "outlined"){
+    border: 2.5px solid $teal-primary;
+  }
+
+  @if($type == "filled"){
+    background-color: $teal-primary;
+    border: 2.5px solid $teal-primary;
+    color: $background-light;
+  }
+}

@@ -1,0 +1,447 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "variables.scss";
+@import "mixins.scss";
+
+// @font-face {
+//   font-family: "CircularStd";
+//   src: url("../public/fonts/CircularStd/CircularStd-Black.otf");
+// }
+// @font-face {
+//   font-family: "CircularMedium";
+//   src: url("../public/fonts/CircularStd/CircularStd-Medium.otf");
+// }
+// @font-face {
+//   font-family: "CircularBook";
+//   src: url("../public/fonts/CircularStd/CircularStd-Book.otf");
+// }
+
+// @font-face {
+//   font-family: "CircularBold";
+//   src: url("../public/fonts/CircularStd/CircularStd-Bold.otf");
+// }
+
+// Mapping a single typeface to multiple font weights.
+// That way even if text is not explicitly styled, the global style affects it
+// Feel free to delete comment after you've read it
+
+@font-face {
+  font-family: "Circular Std";
+  src: url("../public/fonts/CircularStd/CircularStd-Book.otf")
+    format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("../public/fonts/CircularStd/CircularStd-Medium.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("../public/fonts/CircularStd/CircularStd-Bold.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Circular Std";
+  src: url("../public/fonts/CircularStd/CircularStd-Black.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+li,
+ul,
+ol,
+button,
+input,
+textarea,
+label,
+span,
+select,
+option,
+form,
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr,
+div {
+  font-family: "Circular Std", "Poppins", sans-serif !important;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  /* color: rgb(var(--foreground-rgb)); */
+  /* background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+}
+
+.link {
+  text-decoration: none;
+}
+
+.delete-btn {
+  background-color: $system-error !important;
+}
+
+.delete-btn:hover {
+  background-color: $system-error-hover !important;
+}
+
+// carousel
+.carousel::-webkit-scrollbar {
+  width: 0 !important;
+}
+.carousel {
+  overflow: -moz-scrollbars-none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.search-input::-moz-placeholder {
+  text-align: center;
+  padding: 10em;
+}
+
+.scroll-bar::-webkit-scrollbar {
+  width: 9px;
+}
+
+.scroll-bar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 20px;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  background: #cbcbcb;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb:hover {
+  background: #959494;
+  border: 0;
+}
+
+.MuiBadge-colorDanger {
+  background-color: $system-error !important;
+  color: #ffffff;
+  font-weight: 450;
+  font-family: "Circular Std", "Poppins", sans-serif !important;
+}
+
+.shadow-img {
+  border: 4px solid #000;
+  box-shadow: 0.75rem 0.5rem 0 0 rgba(0, 0, 0, 1);
+}
+
+// Quill editor
+// you can comment this entire section out and style it yourself
+// If you have the patience you could check the docs below:
+// https://quilljs.com/docs/themes/
+// but personally I'd say, they gave you the class names and they ain't dynamic
+// so hack the hell out of this shit till it looks like what you want it to look like
+.quill {
+  border-color: $system-field !important;
+  border-radius: 12px;
+  border-bottom-left-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+
+  .ql-toolbar {
+    border: 2px solid $system-field !important;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 20px 8px !important;
+  }
+
+  // active tool selection
+  .ql-active {
+    background: $placeholder !important;
+    border-radius: 5px;
+  }
+
+  .ql-editor {
+    padding: 14px 16px !important;
+    min-height: 300px !important;
+  }
+  .ql-editor {
+    font-family: "Circular Std", "Poppins", sans-serif !important;
+    border-bottom-left-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+  }
+  .ql-editor p,
+  .ql-editor li,
+  .ql-editor blockquote {
+    font-weight: 300 !important;
+    font-size: 18px;
+  }
+
+  // body container
+  .ql-container {
+    background: $system-field !important;
+    border-color: $system-field !important;
+    border-bottom-left-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+  }
+
+  // placeholder
+  .ql-editor.ql-blank::before {
+    font-size: 16px;
+    font-weight: 400 !important;
+    font-style: initial !important;
+    color: $text-tertiary !important;
+    font-family: "Circular Std", "Poppins", sans-serif;
+    padding-top: 3px;
+  }
+}
+.ql-error {
+  border-color: $system-error !important;
+
+  .ql-container {
+    border: 2px solid !important;
+    border-color: $system-error !important;
+  }
+}
+
+.body-inner {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  p {
+    line-height: 32px;
+    font-weight: 200;
+    font-size: 20px;
+    margin-top: 1.2em;
+    max-width: 100%;
+    word-wrap: break-word;
+
+    @include respond(mobile) {
+      line-height: 26px;
+      font-size: 16px;
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0.5em;
+    @include respond(mobile) {
+      margin-top: 1.4em;
+    }
+  }
+  ul {
+    li {
+      list-style-type: disc;
+      line-height: 32px;
+      font-weight: 200;
+      font-size: 20px;
+      margin-top: 1.2em;
+      max-width: 100%;
+      word-wrap: break-word;
+
+      @include respond(mobile) {
+        line-height: 26px;
+        font-size: 16px;
+      }
+    }
+  }
+  pre {
+    font-family: source-code-pro, Menlo, Monaco, "Courier New", Courier,
+      monospace !important;
+    background-color: #f2f2f2;
+    padding: 20px;
+    color: #292929;
+    margin-top: 56px;
+    border-radius: 10px;
+  }
+  code {
+    font-family: source-code-pro, Menlo, Monaco, "Courier New", Courier,
+      monospace !important;
+    background-color: #f2f2f2;
+  }
+}
+
+// modal styles
+.modal-backdrop {
+  &.show {
+    opacity: 1 !important;
+    -webkit-backdrop-filter: blur(8px);
+    background: #7cb6c499;
+    backdrop-filter: blur(8px);
+  }
+}
+
+.modal-dialog {
+  .modal-content {
+    box-shadow: 0 0 5px rgba(213, 209, 227, 0.32),
+      0 8px 24px rgba(195, 190, 214, 0.12);
+    border-radius: 20px;
+    border: 0px;
+
+    .modal-pad {
+      padding: 1rem;
+      @include respond(tablet) {
+        padding: 2rem;
+      }
+      @include respond(mobile) {
+        padding: 1.5rem;
+      }
+
+      .modal-header {
+        border-bottom: 0px;
+        .iko-modal-subtitle {
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 300;
+          line-height: 26px;
+        }
+      }
+      .modal-body {
+      }
+    }
+  }
+}
+
+// tooltip
+.popover {
+  border-right: 0.5px solid #dfdfdf !important;
+  box-shadow: 0 0 5px rgb(104 135 137 / 24%) !important;
+  border: none !important;
+  border-radius: 10px !important;
+}
+
+// switch
+.iko-switch {
+  input {
+    height: 26px;
+    width: 48px !important;
+
+    &:checked {
+      background-color: $teal-primary !important;
+      border-color: $teal-primary !important;
+    }
+  }
+}
+
+//custom-popover
+
+.actions-comment {
+  display: none;
+}
+
+.comment:hover .actions-comment {
+  display: block;
+}
+/* emoji picker */
+.EmojiPickerReact .epr-search-container input.epr-search {
+  border-radius: 26px !important;
+  font-weight: 300;
+  &:focus {
+    border: 2px solid $teal-primary !important;
+  }
+}
+
+// Joyride
+.react-joyride__tooltip {
+  border-radius: 16px !important;
+
+  button {
+    padding: 8px 16px !important;
+    border-radius: 16px !important;
+  }
+}
+
+// message bubble
+// Styles for message sequence
+.own-message + .own-message {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.other-message + .other-message {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.own-message:first-child {
+  border-top-right-radius: 4px;
+}
+
+.own-message:last-child {
+  border-top-right-radius: 18px;
+}
+
+.other-message:first-child {
+  border-top-left-radius: 4px;
+}
+
+.other-message:last-child {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 18px;
+}
+
+/* Correcting the first and last message in sequences */
+.own-message:not(:first-child):not(:last-child) {
+  border-radius: 4px;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+}
+
+.other-message:not(:first-child):not(:last-child) {
+  border-radius: 4px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+// streaks
+.streak-bg-animated {
+  background-image: url("/images/icon-flame.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: background-image 0.3s ease-in-out;
+  border-color: #ffc10985;
+
+
+  &:hover {
+    transition: background-image 0.3s ease-in-out;
+    background-image: url("/images/icon-flame.gif");
+    color: transparent !important;
+  }
+}

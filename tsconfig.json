@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    // "typeRoots": ["./node_modules/@types", "./types"], // Include custom types folder
+    "paths": {
+      "@/*": ["./*"],
+      "@types": ["types"],
+      "@utils/*": ["utils/*"],
+      "@hooks": ["hooks/index"],
+      "@services": ["services/index"],
+      "@shadcn-ui/*": ["components/ui/*"],
+      "@pages": ["components/pages/index"],
+      "@layouts": ["components/layouts/index"],
+      "@creator-ui": ["components/creator-ui/index"],
+      "@creator-icons": ["components/creator-icons/index"],
+      "@creator-illustrations": ["components/creator-illustrations/index"],
+      "@paystack/inline-js": ["./types/paystack-inline-js.d.ts"] // Map the module to the declaration file
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
